@@ -1,56 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="김현민 프론트엔드 개발자 포트폴리오">
-  <title>HYUNMIN — 김현민 포트폴리오</title>
+  <meta name="theme-color" content="#eaf3fb">
+  <meta property="og:title" content="HYUNMIN — 김현민 포트폴리오">
+  <meta property="og:description" content="사용자 중심의 화면을 만드는 김현민의 프론트엔드 포트폴리오">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://hyunmin-portfolio.vercel.app/desktop-preview.png">
+  <link rel="canonical" href="https://hyunmin-portfolio.vercel.app/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%234296d6%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 font-size=%2252%22 font-family=%22Arial%22 font-weight=%22700%22 fill=%22white%22>N</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260730-2">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>HYUNMIN — 김현민 포트폴리오</title>
 </head>
 <body>
-  <main id="os" class="booting">
-    <section id="boot" class="overlay boot">
-      <div>
-        <p class="os-logo">HYUNMIN</p>
-        <div id="boot-lines"></div>
-        <button class="ghost skip">SKIP BOOT ↗</button>
-        <div class="progress"><i></i></div>
-      </div>
-    </section>
-    <section id="lock" class="overlay lock" aria-label="잠금 화면">
-      <p id="lock-time" class="clock">12:08</p>
-      <p id="lock-date"></p>
-      <div class="identity">
-        <div class="avatar">N</div>
-        <h1>김현민</h1>
-        <p>Frontend Developer in Progress</p>
-        <button class="primary unlock">포트폴리오 열기 <b>↗</b></button>
-        <small>CLICK OR PRESS ENTER TO UNLOCK</small>
-      </div>
-    </section>
-    <section id="desktop" aria-label="HYUNMIN 바탕화면">
-      <header class="desktop-brand"><b>●</b> HYUNMIN <span>File　Edit　View　Window　Help</span><em>Portfolio Edition　◌　<span id="menu-time">12:08</span></em></header>
-      <div id="icons" class="icons"></div>
-      <div id="windows"></div>
-      <div id="toast" role="status"></div>
-      <div id="start-menu" class="start-menu">
-        <p class="os-logo">HYUNMIN</p>
-        <div id="start-apps"></div>
-        <button class="lock-action">⌑ 화면 잠금</button>
-        <small>Portfolio Edition · 2026</small>
-      </div>
-      <footer class="taskbar">
-        <button id="start" aria-label="시작 메뉴">⌘</button>
-        <div id="dock-apps"></div>
-        <div id="task-apps"></div>
-        <button class="quick-app" data-app="settings" title="Settings">⚙</button>
-        <span class="tray"><span id="tray-time">12:08</span></span>
-      </footer>
-    </section>
-  </main>
-  <script src="script.js?v=20260730-2"></script>
+  <script>if (localStorage.getItem('hyunmin-theme') !== 'dark') document.body.classList.add('light')</script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
