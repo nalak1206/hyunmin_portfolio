@@ -15,20 +15,38 @@ import {
 import { projects } from './projects.js';
 
 const apps = {
-  about: { name: 'About Me', icon: 'N' },
-  projects: { name: 'Projects', icon: '✦' },
-  skills: { name: 'Skills', icon: '⌘' },
-  log: { name: 'Dev Log', icon: '≡' },
-  timeline: { name: 'Timeline', icon: '↗' },
-  gallery: { name: 'Gallery', icon: '▦' },
-  resume: { name: 'Resume', icon: '▤' },
-  contact: { name: 'Contact', icon: '@' },
-  terminal: { name: 'Terminal', icon: '›_' },
-  settings: { name: 'Settings', icon: '⚙' },
+  about: { name: 'About Me', icon: 'user' },
+  projects: { name: 'Projects', icon: 'folder' },
+  skills: { name: 'Skills', icon: 'code' },
+  log: { name: 'Dev Log', icon: 'note' },
+  timeline: { name: 'Timeline', icon: 'route' },
+  gallery: { name: 'Gallery', icon: 'image' },
+  resume: { name: 'Resume', icon: 'file' },
+  contact: { name: 'Contact', icon: 'mail' },
+  terminal: { name: 'Terminal', icon: 'terminal' },
+  settings: { name: 'Settings', icon: 'settings' },
 };
 
 const dockApps = ['about', 'projects', 'skills', 'log', 'gallery', 'terminal'];
 const startApps = ['about', 'projects', 'skills', 'log', 'contact', 'settings'];
+
+const iconPaths = {
+  user: <><circle cx="12" cy="8" r="3" /><path d="M5.5 20a6.5 6.5 0 0 1 13 0" /></>,
+  folder: <><path d="M3.5 7.5h6l2-2h9v13h-17z" /><path d="M3.5 9.5h17" /></>,
+  code: <><path d="m9 7-5 5 5 5" /><path d="m15 7 5 5-5 5" /></>,
+  note: <><path d="M5 4.5h14v15H5z" /><path d="M8 9h8M8 13h8M8 17h5" /></>,
+  route: <><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M8 18h2a4 4 0 0 0 4-4v-4a4 4 0 0 1 4-4" /></>,
+  image: <><rect x="3.5" y="4.5" width="17" height="15" rx="2" /><circle cx="9" cy="10" r="1.5" /><path d="m5 18 5-5 3 3 2-2 4 4" /></>,
+  file: <><path d="M6 3.5h8l4 4v13H6z" /><path d="M14 3.5v4h4M9 12h6M9 16h6" /></>,
+  mail: <><rect x="3.5" y="5.5" width="17" height="13" rx="2" /><path d="m4.5 7 7.5 6 7.5-6" /></>,
+  terminal: <><rect x="3.5" y="5" width="17" height="14" rx="2" /><path d="m7 10 3 2-3 2M13 15h4" /></>,
+  settings: <><circle cx="12" cy="12" r="3" /><path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2M6 6l1.5 1.5M16.5 16.5 18 18M18 6l-1.5 1.5M7.5 16.5 6 18" /></>,
+  grid: <><rect x="4" y="4" width="6" height="6" rx="1" /><rect x="14" y="4" width="6" height="6" rx="1" /><rect x="4" y="14" width="6" height="6" rx="1" /><rect x="14" y="14" width="6" height="6" rx="1" /></>,
+};
+
+function AppGlyph({ name }) {
+  return <svg className="app-glyph" viewBox="0 0 24 24" aria-hidden="true">{iconPaths[name]}</svg>;
+}
 
 function initialPreferences() {
   return {
@@ -38,7 +56,7 @@ function initialPreferences() {
   };
 }
 
-function WindowFrame({ windowState, title, children, motion, onClose, onFocus, onMinimize, onMaximize, onMove }) {
+function WindowFrame({ windowState, title, children, motion, active, onClose, onFocus, onMinimize, onMaximize, onMove }) {
   const [launching, setLaunching] = useState(true);
   const dragRef = useRef(null);
   const frameRef = useRef(null);
@@ -65,8 +83,8 @@ function WindowFrame({ windowState, title, children, motion, onClose, onFocus, o
   return (
     <section
       ref={frameRef}
-      className={`window active${launching ? ' launching' : ''}${windowState.maximized ? ' maximized' : ''}`}
-      role="dialog"
+      className={`window${active ? ' active' : ''}${launching ? ' launching' : ''}${windowState.maximized ? ' maximized' : ''}`}
+      role="region"
       aria-label={title}
       tabIndex={-1}
       style={{ left: windowState.x, top: windowState.y, zIndex: windowState.z, display: windowState.minimized ? 'none' : 'flex' }}
@@ -181,6 +199,12 @@ export default function App() {
     showToast('어서오세요! 김현민의 포트폴리오 사이트입니다!');
   }
 
+  function openProjectsFirst() {
+    setStage('ready');
+    openApp('projects');
+    showToast('프로젝트부터 바로 보여드릴게요.');
+  }
+
   function renderContent(windowState) {
     const props = { preferences, onChange: changePreference, onReboot: reboot };
     switch (windowState.id) {
@@ -205,6 +229,8 @@ export default function App() {
 
   const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
   const date = now.toLocaleDateString('ko-KR', { weekday: 'long', month: 'long', day: 'numeric' });
+  const visibleWindows = windows.filter((item) => !item.minimized);
+  const activeWindowZ = visibleWindows.reduce((highest, item) => Math.max(highest, item.z), 0);
 
   return (
     <main id="os" className={stage}>
@@ -212,15 +238,15 @@ export default function App() {
         <div><p className="os-logo">HYUNMIN</p><div id="boot-lines">{bootLines.map((line) => <p key={line}>› {line}</p>)}</div><button type="button" className="ghost skip" onClick={() => setStage('locked')}>SKIP BOOT ↗</button><div className="progress"><i /></div></div>
       </section>
       <section id="lock" className="overlay lock" aria-label="잠금 화면">
-        <p className="clock">{time}</p><p>{date}</p><div className="identity"><div className="avatar">N</div><h1>김현민</h1><p>Frontend Developer in Progress</p><button type="button" className="primary unlock" onClick={unlock}>포트폴리오 열기 <b aria-hidden="true">↗</b></button><small>CLICK OR PRESS ENTER TO UNLOCK</small></div>
+        <p className="clock">{time}</p><p>{date}</p><div className="identity"><div className="avatar">N</div><h1>김현민</h1><p>Frontend Developer in Progress</p><div className="lock-actions"><button type="button" className="primary unlock" onClick={unlock}>포트폴리오 열기 <b aria-hidden="true">↗</b></button><button type="button" className="text-action" onClick={openProjectsFirst}>프로젝트 먼저 보기</button></div><small>엔터키를 눌러도 열 수 있습니다</small></div>
       </section>
-      <section id="desktop" aria-label="HYUNMIN 바탕화면" className={preferences.effects ? '' : 'no-effects'}>
+      <section id="desktop" aria-label="HYUNMIN 바탕화면" className={`${preferences.effects ? '' : 'no-effects'}${visibleWindows.length ? ' has-visible-window' : ''}`}>
         <header className="desktop-brand"><b>●</b> HYUNMIN <span>File · Edit · View · Window · Help</span><em>React Edition · ◌ · {time}</em></header>
-        <div id="icons" className="icons">{Object.entries(apps).map(([id, app]) => <button type="button" className="desk-icon" key={id} onClick={() => openApp(id)} aria-label={`${app.name} 열기`}><span className="app-icon" aria-hidden="true">{app.icon}</span>{app.name}</button>)}</div>
-        <div id="windows">{windows.map((windowState) => <WindowFrame key={windowState.id} windowState={windowState} title={windowTitle(windowState)} motion={preferences.motion} onClose={() => setWindows((current) => current.filter((item) => item.id !== windowState.id))} onFocus={() => focusWindow(windowState.id)} onMinimize={() => updateWindow(windowState.id, { minimized: true })} onMaximize={() => updateWindow(windowState.id, { maximized: !windowState.maximized })} onMove={(x, y) => updateWindow(windowState.id, { x, y })}>{renderContent(windowState)}</WindowFrame>)}</div>
+        <div id="icons" className="icons">{Object.entries(apps).map(([id, app]) => <button type="button" className="desk-icon" key={id} onClick={() => openApp(id)} aria-label={`${app.name} 열기`}><span className="app-icon"><AppGlyph name={app.icon} /></span>{app.name}</button>)}</div>
+        <div id="windows">{windows.map((windowState) => <WindowFrame key={windowState.id} windowState={windowState} title={windowTitle(windowState)} motion={preferences.motion} active={windowState.z === activeWindowZ} onClose={() => setWindows((current) => current.filter((item) => item.id !== windowState.id))} onFocus={() => focusWindow(windowState.id)} onMinimize={() => updateWindow(windowState.id, { minimized: true })} onMaximize={() => updateWindow(windowState.id, { maximized: !windowState.maximized })} onMove={(x, y) => updateWindow(windowState.id, { x, y })}>{renderContent(windowState)}</WindowFrame>)}</div>
         <div id="toast" role="status" className={toast ? 'show' : ''}>{toast}</div>
-        <div id="start-menu" className={`start-menu${startOpen ? ' open' : ''}`}><p className="os-logo">HYUNMIN</p><div>{startApps.map((id) => <button type="button" key={id} onClick={() => openApp(id)}>{apps[id].icon} · {apps[id].name}</button>)}</div><button type="button" className="lock-action" onClick={() => { setStage('locked'); setStartOpen(false); }}>⌑ 화면 잠금</button><small>React Portfolio Edition · 2026</small></div>
-        <footer className="taskbar"><button type="button" id="start" aria-label="시작 메뉴" aria-expanded={startOpen} onClick={() => setStartOpen((open) => !open)}>⌘</button><div id="dock-apps">{dockApps.map((id) => { const running = windows.some((item) => item.id === id); const visible = windows.some((item) => item.id === id && !item.minimized); return <button type="button" className={`dock-app${running ? ' is-running' : ''}`} key={id} onClick={() => toggleDockApp(id)} aria-label={`${apps[id].name} ${visible ? '최소화' : '열기'}`} aria-pressed={visible}><span className="app-icon" aria-hidden="true">{apps[id].icon}<i className="running-dot" /></span></button>; })}</div><div id="task-apps" /><button type="button" className={`quick-app${windows.some((item) => item.id === 'settings') ? ' is-running' : ''}`} data-app="settings" aria-label="Settings 열기" onClick={() => toggleDockApp('settings')}>⚙</button><span className="tray">{time}</span></footer>
+        <div id="start-menu" className={`start-menu${startOpen ? ' open' : ''}`}><p className="os-logo">HYUNMIN</p><div>{startApps.map((id) => <button type="button" key={id} onClick={() => openApp(id)}><AppGlyph name={apps[id].icon} />{apps[id].name}</button>)}</div><button type="button" className="lock-action" onClick={() => { setStage('locked'); setStartOpen(false); }}>화면 잠금</button><small>React Portfolio Edition · 2026</small></div>
+        <footer className="taskbar"><button type="button" id="start" aria-label="시작 메뉴" aria-expanded={startOpen} onClick={() => setStartOpen((open) => !open)}><AppGlyph name="grid" /></button><div id="dock-apps">{dockApps.map((id) => { const running = windows.some((item) => item.id === id); const visible = windows.some((item) => item.id === id && !item.minimized); return <button type="button" className={`dock-app${running ? ' is-running' : ''}`} key={id} onClick={() => toggleDockApp(id)} aria-label={`${apps[id].name} ${visible ? '최소화' : '열기'}`} aria-pressed={visible}><span className="app-icon"><AppGlyph name={apps[id].icon} /><i className="running-dot" /></span></button>; })}</div><div id="task-apps" /><button type="button" className={`quick-app${windows.some((item) => item.id === 'settings') ? ' is-running' : ''}`} data-app="settings" aria-label="Settings 열기" onClick={() => toggleDockApp('settings')}><AppGlyph name="settings" /></button><span className="tray">{time}</span></footer>
       </section>
     </main>
   );

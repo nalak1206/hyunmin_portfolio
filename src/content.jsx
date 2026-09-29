@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { projects } from './projects.js';
 
 export function About() {
-  return <><h2>김현민</h2><p className="lead">다양한 웹사이트를 탐구하고 분석하며, 사용자에게 좋은 경험을 제공하는 UI를 설계하는 김현민입니다.</p><div className="id-card"><div className="avatar">N</div><div><b>Frontend Developer · UX/UI Designer</b><p>이메일: hfjevblkjfk@gmail.com<br />GitHub: github.com/nalak1206<br /><a href="https://app.notion.com/p/KimHyunMin-326dd31f000a802cb250c432452b6a1c" target="_blank" rel="noopener noreferrer">Notion: KimHyunMin ↗</a></p></div></div><h3>자기소개</h3><p className="lead">새로운 아이디어가 떠오르면 직접 디자인하거나 개발하면서 실제 결과물로 만들어 봅니다. 익숙하지 않은 기술이 필요할 때는 AI로 해결 방법을 탐색하고 내용을 이해한 뒤 프로젝트에 적용하고 있습니다.</p><p className="lead">디자인과 개발 역량을 함께 발전시켜 누구나 쉽고 편리하게 사용할 수 있는 웹 서비스를 만드는 것이 목표입니다.</p></>;
+  return <><h2>김현민</h2><p className="lead">웹사이트를 직접 살펴보고 구조를 분석하며, 사용하기 편한 화면을 고민하는 김현민입니다.</p><div className="status-line"><span />현재 React와 Supabase를 배우며 프로젝트로 확인하고 있어요.</div><div className="id-card"><div className="avatar">N</div><div><b>Frontend Developer · UX/UI Designer</b><p>이메일: hfjevblkjfk@gmail.com<br />GitHub: github.com/nalak1206<br /><a href="https://app.notion.com/p/KimHyunMin-326dd31f000a802cb250c432452b6a1c" target="_blank" rel="noopener noreferrer">Notion: KimHyunMin ↗</a></p></div></div><h3>자기소개</h3><p className="lead">새 아이디어가 생기면 디자인과 코드로 옮겨 실제로 작동하는 결과물까지 만들어 봅니다. 낯선 기술이 필요하면 AI로 해결책을 찾되, 원리를 이해한 다음 프로젝트에 적용합니다.</p><p className="lead">디자인 감각과 개발 역량을 함께 키워, 처음 쓰는 사람도 헤매지 않는 웹 서비스를 만들고 싶습니다.</p></>;
 }
 
 export function Projects({ onOpenProject }) {
-  return <><h2>Selected Projects</h2><p className="lead">카드를 선택하면 프로젝트 상세 정보를 확인할 수 있습니다.</p><div className="card-grid">{projects.map((project, index) => <button type="button" className="card project" key={project.name} onClick={() => onOpenProject(index)} aria-label={`${project.name} 상세 보기`}><small>0{index + 1} / {project.stack}</small><b>{project.name}</b><p>{project.summary}</p><span>상세 보기 ↗</span></button>)}</div></>;
+  return <><h2>Selected Projects</h2><p className="lead">무엇을 만들었고 어떤 문제를 풀었는지 프로젝트별로 정리했습니다.</p><div className="card-grid">{projects.map((project, index) => <button type="button" className="card project" key={project.name} onClick={() => onOpenProject(index)} aria-label={`${project.name} 상세 보기`}><small>{project.stack}</small><b>{project.name}</b><p>{project.summary}</p>{project.result && <em>1등 수상</em>}<span>구현과 문제 해결 보기 ↗</span></button>)}</div></>;
 }
 
 export function ProjectDetail({ project }) {
@@ -14,19 +14,20 @@ export function ProjectDetail({ project }) {
 }
 
 export function Skills() {
-  const ready = [['Python', 'Discord 자동 메시지 봇과 macOS 자동 실행 설정에 사용했습니다.'], ['HTML', '웹사이트의 제목, 입력, 버튼과 결과 영역 구조를 구성할 수 있습니다.'], ['CSS', 'Flexbox, 반응형 배치와 기본적인 인터랙션 UI를 구현할 수 있습니다.']];
-  const learning = [['JavaScript', '입력 검증, 계산, 이벤트 기반 화면 변경을 프로젝트에 적용했습니다.'], ['React', '컴포넌트 분리와 라우팅을 사용한 게시판을 제작했습니다.'], ['Supabase', '게시글 데이터의 조회·등록·수정과 클라이언트 연결을 학습 중입니다.']];
+  const ready = [['Python', 'Discord 자동 메시지 봇과 macOS 자동 실행 설정에 사용했습니다.'], ['HTML', '제목, 입력창, 버튼, 결과 영역 등 웹 화면의 기본 구조를 만들 수 있습니다.'], ['CSS', 'Flexbox와 반응형 배치를 활용해 다양한 화면에 맞는 인터랙션 UI를 구현할 수 있습니다.']];
+  const learning = [['JavaScript', '입력 검증과 계산, 이벤트에 따른 화면 변화를 프로젝트에 적용했습니다.'], ['React', '컴포넌트를 나누고 React Router로 페이지를 구분한 게시판을 만들었습니다.'], ['Supabase', '게시글 조회·등록·수정과 React 클라이언트 연결을 익히는 중입니다.']];
   const cards = (items) => <div className="card-grid">{items.map(([name, text]) => <article className="card" key={name}><b>{name}</b><p>{text}</p></article>)}</div>;
-  return <><h2>Skills & Experience</h2><p className="lead">숙련도를 숫자로 단정하지 않고 실제 적용 경험을 중심으로 정리합니다.</p><h3>실제 사용 가능 <span className="tag">READY</span></h3>{cards(ready)}<h3>학습 중 <span className="tag">LEARNING</span></h3>{cards(learning)}</>;
+  return <><h2>Skills & Experience</h2><p className="lead">숫자로 숙련도를 부풀리기보다, 직접 써 본 범위와 현재 배우는 내용을 나눠 적었습니다.</p><h3>실제 사용 가능 <span className="tag">READY</span></h3>{cards(ready)}<h3>학습 중 <span className="tag">LEARNING</span></h3>{cards(learning)}</>;
 }
 
 export function DevLog() {
   const logs = [['Troubleshooting', 'Supabase export 오류 해결'], ['Python', 'macOS에서 Python 파일 실행 권한 문제 해결'], ['Automation', 'Discord Bot 자동 실행 설정'], ['React', 'React Router를 이용한 게시판 페이지 분리'], ['Figma', 'Figma 팀 프로젝트 화면 구조 설계'], ['JavaScript', 'LoL RP 계산기 입력 UI 개선']];
-  return <><h2>Dev Log</h2><p className="lead">배운 내용과 문제 해결 과정을 기록합니다.</p>{logs.map(([category, title]) => <article className="log" key={title}><small>{category} · 2026</small><b>{title}</b></article>)}</>;
+  const photos = [['presentation', '발표를 준비하며'], ['video-presentation', '구현한 화면과 아이디어 발표'], ['video-audience', '현장 참가자들과 함께한 발표 시간'], ['award', 'Most Fun Product 수상 기념']];
+  return <><h2>Dev Log</h2><p className="lead">배운 내용과 막힌 문제를 풀어 간 과정을 짧게 기록했습니다.</p><article className="field-trip"><h3>I/O Extended: Agent Field Trip 2026 Incheon</h3><p className="lead">2026.09.12 · 인천 · 프론트엔드 개발 역할로 참여</p><h3>현장에서 문제를 찾으며, 개발자의 역할을 다시 생각하다</h3><p className="lead">현장을 직접 돌아다니며 문제를 찾는 방식이 가장 인상 깊었습니다. 화면 앞에서 아이디어를 생각할 때와 달리, 실제 공간에서 불편함을 마주하니 무엇을 해결해야 하는지 더 구체적으로 보였고 해결 방법도 함께 고민하기 좋았습니다. 개발자가 현장을 이해하고 AI와 함께 문제를 풀어가는 모습에서 앞으로의 개발 방식도 엿볼 수 있었습니다.</p><p className="lead">프론트엔드 개발 역할로 참여하면서 같은 팀의 시니어 개발자분들에게 AI 활용 방법과 실제 개발 현장의 이야기를 들었습니다. 혼자 공부할 때는 접하기 어려웠던 경험을 나누며, 앞으로 무엇을 배우고 어떤 방향으로 성장할지 생각해 볼 수 있었습니다.</p><p className="lead">이번 경험을 통해 개발은 기능을 구현하는 것만큼이나 해결할 문제를 제대로 찾는 일이 중요하다는 것을 느꼈습니다. 현장을 살피고 사람들의 불편함을 이해하는 개발자가 되고 싶다는 마음이 생겼고, 프론트엔드 개발자로 나아가려는 진로도 한층 확실해졌습니다.</p><p className="lead"><b>팀 결과물로 Most Fun Product를 수상했습니다.</b></p><div className="image-grid field-trip-photos">{photos.map(([file, caption]) => <figure key={file}><img loading="lazy" decoding="async" width="1200" height={file.startsWith('video') ? 675 : 800} src={`/assets/field-trip/${file}.jpg`} alt={`Agent Field Trip · ${caption}. 본인 외 참가자 얼굴 모자이크 처리`} /><figcaption>{caption}</figcaption></figure>)}</div><p className="event-links"><a href="https://gdg.community.dev/events/details/google-gdg-incheon-presents-io-extended-agent-field-trip-2026-incheon/" target="_blank" rel="noopener noreferrer">행사 소개 ↗</a><a href="https://photos.app.goo.gl/7TGSo8Rd9pf6Pq4h7" target="_blank" rel="noopener noreferrer">행사 사진 앨범 ↗</a></p></article><h3>개발 기록</h3>{logs.map(([category, title]) => <article className="log" key={title}><small>{category} · 2026</small><b>{title}</b></article>)}</>;
 }
 
 export function Timeline() {
-  const items = [['2025', '프론트엔드 분야에 관심을 갖고 학습 시작'], ['2025', 'Python과 HTML · CSS · JavaScript 학습'], ['2026', 'Figma 팀 프로젝트 · Discord Bot 개발'], ['2026', 'React · Supabase 게시판 프로젝트'], ['NEXT', '사용자 중심의 제품을 만드는 개발자']];
+  const items = [['2025', '프론트엔드 분야에 관심을 갖고 학습 시작'], ['2025', 'Python과 HTML · CSS · JavaScript 학습'], ['2026', 'Figma 팀 프로젝트 · Discord Bot 개발'], ['2026', 'React · Supabase 게시판 프로젝트'], ['2026.09.12', 'Agent Field Trip 참가 · 프론트엔드 개발 · Most Fun Product 수상'], ['NEXT', '사용자 중심의 제품을 만드는 개발자']];
   return <><h2>Learning Timeline</h2><div className="timeline">{items.map(([year, text], index) => <article key={`${year}-${index}`}><small>{year}</small><b>{text}</b></article>)}</div></>;
 }
 
@@ -36,7 +37,7 @@ export function Gallery() {
 }
 
 export function Resume() {
-  return <><h2>Resume</h2><p className="lead">김현민 · Frontend Developer in Progress</p><h3>핵심 기술</h3><p>HTML · CSS · JavaScript · React · Python · Figma · Supabase</p><h3>프로젝트</h3><p>Figma 팀 프로젝트 / Discord Bot / React · Supabase 게시판 / LoL RP 계산기</p><button type="button" className="primary unavailable" disabled>이력서 PDF · 준비 중</button></>;
+  return <><h2>Resume</h2><p className="lead">김현민 · Frontend Developer in Progress</p><h3>핵심 기술</h3><p>HTML · CSS · JavaScript · React · Python · Figma · Supabase</p><h3>프로젝트</h3><p>Figma 팀 프로젝트 / Discord Bot / React · Supabase 게시판 / LoL RP 계산기</p><a className="primary" href="https://app.notion.com/p/KimHyunMin-326dd31f000a802cb250c432452b6a1c" target="_blank" rel="noopener noreferrer">Notion 프로필 보기 ↗</a><p className="availability-note">이력서 PDF는 준비 중입니다.</p></>;
 }
 
 export function Contact() {
