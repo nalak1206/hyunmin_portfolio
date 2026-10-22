@@ -12,7 +12,7 @@ function defaultMotion() {
 }
 
 export default function App() {
-  const [theme, setTheme] = usePreference('theme', 'dark');
+  const [theme, setTheme] = usePreference('theme', 'light');
   const [motion, setMotion] = usePreference('motion', defaultMotion());
   const [currentId, go] = useStation(stationIds);
   const [exploded, setExploded] = useState(false);

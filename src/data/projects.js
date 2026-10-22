@@ -13,7 +13,7 @@ export const projects = [
     name: 'Who is LILPA',
     subtitle: '실제 기록으로 만든 클릭형 발표 웹사이트',
     period: '2026.10.06 — 10.19',
-    role: '기획 · 디자인 · 개발',
+    role: '개인 프로젝트 · 기획 · 디자인 · 개발 · 저장소 비공개',
     stamp: 'Live',
     stack: ['React 19', 'TypeScript', 'Vite', 'Vitest', 'Playwright'],
     intro:
@@ -56,7 +56,7 @@ if (selection && !selection.isCollapsed) return;`,
     id: 'developet',
     name: 'DeveloPet',
     subtitle: 'AI 코딩 에이전트의 작업 상태를 픽셀 펫으로 보여주는 macOS 앱',
-    period: '2026.09.12 — 10.19',
+    period: '2026.09.12 — 진행 중',
     role: 'Personal · 설계 · 개발',
     stack: ['Swift 6', 'SwiftUI', 'AppKit', 'SwiftPM', 'GitHub Actions'],
     intro:
@@ -78,6 +78,7 @@ if (selection && !selection.isCollapsed) return;`,
       },
     ],
     note: '에이전트가 뭘 하는지 터미널 안 보고도 알게',
+    result: '개발 중인 프로젝트입니다.',
     links: [],
   },
   {
@@ -133,6 +134,7 @@ if (selection && !selection.isCollapsed) return;`,
       },
     ],
     note: '건드리기 전에 먼저 읽기만!',
+    result: '개발 중인 프로젝트입니다. 현재 Phase 0 진단 CLI까지 구현했습니다.',
     // README의 실행 예시와 docs/phase0 개발 결과 표에서 가져온 값
     terminal: {
       command: 'ghostdock-preflight --json --output reports/preflight-001.json /Applications/Discord.app /Applications/KakaoTalk.app',

@@ -25,6 +25,7 @@ npm run dev
 정거장별 모양: 소개 = 구, Who is LILPA = 발표 화면, DeveloPet = 펫이 도는 링, 못풀준 = 프론트·API·채점기 3층 판, GhostDock = Dock과 떠 있는 숨겨진 앱, Field log = 흩어진 조각, About = 이중 나선, Contact = 출구(포털).
 
 - **Motion Off**: 헤더 버튼(또는 OS의 동작 줄이기)으로 모든 연출을 끕니다. 모양은 바로 바뀝니다.
+- **테마**: 첫 방문은 화이트 모드로 시작하며, 이후에는 사용자가 선택한 테마를 유지합니다.
 - **모바일(960px 이하)**: 무대 → 가로 목록 → 상세 순서로 쌓입니다.
 - three.js는 지연 로딩되어 글자가 먼저 뜨고, 3D에서 오류가 나면 조형물만 숨깁니다.
 - 색: 블랙 · 실버 · 아이스 블루. 글꼴: Unbounded(영문 제목), Pretendard(본문), JetBrains Mono(라벨).
@@ -45,7 +46,7 @@ public/images/  프로젝트 스크린샷(JPG), DeveloPet 펫 GIF, 현장 사진
 
 ## TODO (직접 해야 하는 것)
 
-- [ ] DeveloPet·GhostDock 레포 공개 후 `src/data/projects.js`의 `links`에 추가
-- [ ] Who is LILPA: 혼자 만든 프로젝트인지 확인 후 `role` 수정, 레포 공개 여부 결정
+- [x] DeveloPet·GhostDock은 개발 중인 프로젝트로 표시
+- [x] Who is LILPA는 개인 프로젝트·저장소 비공개로 표시 (라이브 데모는 공개)
 - [ ] 손글씨 메모(`note`)와 `profile.now` 문구를 본인 말투로 다듬기
-- [ ] 이름 기반 이메일로 교체 (`src/data/profile.js`)
+- [ ] 이름 기반 이메일 생성 후 교체 (`src/data/profile.js`, 생성 전까지 기존 주소 유지)
