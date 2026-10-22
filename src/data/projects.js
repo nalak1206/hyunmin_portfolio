@@ -106,7 +106,7 @@ if (selection && !selection.isCollapsed) return;`,
       },
     ],
     note: '디자인 값은 토큰으로, 팀 전체가 같이 쓰게',
-    links: [{ label: '데모', href: 'https://unsolvable-oj-front.vercel.app/' }],
+    links: [{ label: '데모', href: 'https://judge.yaki.kr/' }],
   },
   {
     id: 'ghostdock',
