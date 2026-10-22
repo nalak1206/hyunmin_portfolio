@@ -1,24 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="김현민 프론트엔드 개발자 포트폴리오">
-  <meta name="theme-color" content="#eaf3fb">
-  <meta property="og:title" content="HYUNMIN — 김현민 포트폴리오">
-  <meta property="og:description" content="사용자 중심의 화면을 만드는 김현민의 프론트엔드 포트폴리오">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://hyunmin-portfolio.vercel.app/desktop-preview.png">
-  <link rel="canonical" href="https://hyunmin-portfolio.vercel.app/">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%234296d6%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 font-size=%2252%22 font-family=%22Arial%22 font-weight=%22700%22 fill=%22white%22>N</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <title>HYUNMIN — 김현민 포트폴리오</title>
-</head>
-<body>
-  <script>if (localStorage.getItem('hyunmin-theme') !== 'dark') document.body.classList.add('light')</script>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>김현민 · Frontend Developer</title>
+    <meta name="description" content="사용하기 편한 화면을 고민하는 프론트엔드 개발자 김현민의 포트폴리오" />
+    <meta property="og:title" content="김현민 · Frontend Developer" />
+    <meta property="og:description" content="React 발표 사이트, Swift macOS 앱, 팀 온라인 저지. 디자인과 코드를 함께 다룹니다." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://hyunmin-portfolio.vercel.app/images/lilpa/scene-01.jpg" />
+    <link rel="canonical" href="https://hyunmin-portfolio.vercel.app/" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%2307090c%22/><text x=%2250%22 y=%2268%22 text-anchor=%22middle%22 font-size=%2252%22 font-family=%22sans-serif%22 font-weight=%22800%22 fill=%22%239bd4ff%22>현</text></svg>" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@600;800&display=swap" rel="stylesheet" />
+    <script>
+      try {
+        const root = document.documentElement;
+        root.dataset.theme = localStorage.getItem('theme') || 'dark';
+        const motion = localStorage.getItem('motion');
+        if (motion) root.dataset.motion = motion;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
